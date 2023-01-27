@@ -1,39 +1,8 @@
-'''
-lcm
-primefactors
-isprime
-totient
-carmichael
-determinant
-cramer
-powmod
-digitcount
-digitsum
-sqrt2
-dictionary
-diksyunaryo
-divisorsum
-leastexp
-egcd
-inverse
-numdivisor
-int2base
-issquare
-isresidue
-nonresidue
-tonelli
-newbinom
-newfact
-matmul
-matpow
-sequenceplot
-'''
-    
 def lcm(a,b): #O(log(min(a,b)))
     from math import gcd
     return(a//gcd(a,b)*b)
 
-def primefactors(n): #O(sqrt(n))
+def factorint(n): #O(sqrt(n))
     a = {}
     while not n % 2:
         if 2 not in a:
@@ -107,6 +76,8 @@ def carmichael(n): #O(sqrt(n))
             m = lcm(m,(i - 1)*i**(p - 1))
     return(m)
 
+# todo: use gaussian elim
+
 def determinant(a,n): #O(n!)
     if n <= 3:
         if n == 3:
@@ -127,6 +98,8 @@ def determinant(a,n): #O(n!)
             k += s*a[i][0]*determinant(m,n - 1)
             s *= -1
         return(k)
+    
+# todo: use gaussian elim
         
 def cramer(m,a,n): #O(n*n!)
     d = determinant(m,n)
