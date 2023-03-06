@@ -66,7 +66,7 @@ class Divide:
     def valid(*a):
         if len(a) != 2: return False
         if a[1].val == 0: return False #no division by 0
-        if any(type(i) in [Multiply,Divide] for i in a): return False #no nested multiply/dividr
+        if any(type(i) == Divide for i in a): return False #no nested division
         return True
     def __repr__(this):
         return f'"{this.repr}"'
