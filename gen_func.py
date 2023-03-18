@@ -235,7 +235,36 @@ class GenFunc:
         G.reducezeros()
         return G
 
+# These next two functions are a bit weird to express
 
+def log(F):
+    if F[0] == 0:
+        raise ZeroDivisionError("log 0 is undefined")
+    G = (F.diff()/F).integrate()
+    if F[0] == 1:
+        return G
+    else:
+        G[0] = f"log {F[0]}"   # the answer would be a bit weird
+        return G
+
+def exp(F):
+    G = GenFunc([1], F.maxdeg)
+    H = GenFunc([1], F.maxdeg)
+    dF = F.diff()
+    f = 1
+    for i in range(1, F.maxdeg+1):
+        H = H.diff() + H*dF
+        f *= i
+        G[i] = Fraction(H[0], f)
+    if F[0] == 0:
+        return G
+    else:
+        from sympy import symbols
+        e = symbols('e')  # yeah it needs e at this point... but only if e^f != 1
+        return e**F[0] * G
+    
+
+# Examples
 
 A = GenFunc([0,1,2,3], 15)
 B = GenFunc([4,5,6,7])
